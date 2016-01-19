@@ -21,7 +21,7 @@ require 'nokogiri' # For validating html from our editor
 class HTMLToConfluenceParser
   attr_accessor :result, :data_stack, :a_href, :a_title, :list_stack
 
-  def initialize(verbose=nil)
+  def initialize
     @output = String.new
     @stack = []
     @preserveWhitespace = false
