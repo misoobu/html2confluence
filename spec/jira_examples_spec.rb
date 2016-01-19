@@ -3,7 +3,7 @@ $LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
 require 'html2confluence'
 
 describe HTMLToConfluenceParser, "when running JIRA examples" do
-  
+
   before :all do
     html = <<-END
 <h1><a name="Biggestheading"></a>Biggest heading</h1>
@@ -130,7 +130,7 @@ a &#8212; b</p>
 </pre>
 </div></div>
     END
-    
+
     markup = <<-END
   h1. Biggest heading
 h2. Bigger heading
@@ -214,8 +214,8 @@ preformatted piece of text
  so *no* further _formatting_ is done here
 {noformat}
     END
-    
-    
+
+
     parser = HTMLToConfluenceParser.new
     parser.feed(html)
     @textile = parser.to_wiki_markup
@@ -251,7 +251,7 @@ preformatted piece of text
     expect(@textile).to match(/^h5. Small heading/)
     expect(@textile).to match(/^h6. Smallest heading/)
   end
-  
+
   it "should convert inline formatting" do
     expect(@textile).to match(/^\*strong\*/)
     expect(@textile).to match(/^_emphasis_/)
@@ -262,32 +262,32 @@ preformatted piece of text
     expect(@textile).to match(/^\~subscript\~/)
     expect(@textile).to match(/^\{\{monospaced\}\}/)
   end
-  
+
   it "should convert block quotes" do
     expect(@textile).to match(/^bq. Some block quoted text/)
     expect(@textile).to match(/^\{quote\}\s*here is quotable\s*content to be quoted\s*{quote}/)
   end
-  
+
   it "should handle text color" do
     expect(@textile).to match(/^\{color\:red\}\s*look ma, red text!\s*\{color\}/)
   end
-  
+
   it "should convert horizontal rules" do
     expect(@textile).to match(/^---/)
   end
-  
+
   it "should convert dashes" do
     expect(@textile).to match(/^a -- b/)
     expect(@textile).to match(/^a --- b/)
   end
-  
+
   it "should convert links" do
     expect(@textile).to match(/^\[\#anchor\]/)
     expect(@textile).to match(/^\[http\:\/\/jira.atlassian.com\]/)
     expect(@textile).to match(/^\[Atlassian\|http\:\/\/atlassian.com\]/)
     expect(@textile).to match(/^\[file\:\/\/\/c\:\/temp\/foo.txt\]/)
   end
-  
+
   it "should convert bullets" do
     expect(@textile).to match(/\* some\s*\* bullet\s*\*\* indented\s*\*\* bullets\s*\* points/)
     expect(@textile).to match(/- different\s*- bullet\s*- types/)
@@ -295,11 +295,11 @@ preformatted piece of text
     expect(@textile).to match(/# a\s*# numbered\s*#\* with\s*#\* nested\s*#\* bullet\s*# list/)
     expect(@textile).to match(/\* a\s*\* bulleted\s*\*# with\s*\*# nested\s*\*# numbered\s*\* list/)
   end
-  
+
   it "should convert pre blocks" do
     expect(@textile).to match(/^\{noformat\}\s*preformatted piece of text\s*so \*no\* further _formatting_ is done here\s*\{noformat\}/)
   end
-  
+
   it "should convert tables" do
     expect(@textile).to include("||heading 1 ||heading 2 ||heading 3 ||")
     expect(@textile).to include("|col A1 |col A2 |col A3 |")
@@ -312,5 +312,5 @@ preformatted piece of text
     expect(@textile).to include("(off)")
     expect(@textile).to include("(/)")
   end
-  
+
 end

@@ -3,7 +3,7 @@ $LOAD_PATH << File.join(File.dirname(__FILE__), '..', 'lib')
 require 'html2confluence'
 
 describe HTMLToConfluenceParser, "when running combination examples" do
-  
+
   it "should match complex examples" do
     html = <<-END
 <ol>
@@ -12,14 +12,14 @@ describe HTMLToConfluenceParser, "when running combination examples" do
 	<li>list</li>
 </ol>
     END
-    
+
     markup = <<-END
-# a 
-# numbered *item* that is +underlined+. 
+# a
+# numbered *item* that is +underlined+.
 # list
     END
-    
-    
+
+
     parser = HTMLToConfluenceParser.new
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to include(markup.strip)
@@ -68,29 +68,29 @@ describe HTMLToConfluenceParser, "when running combination examples" do
       </li>
       <li>and back out</li>
     </ul>
-    
+
     <h1>With <u>nice</u> formatting.</h1>
     END
 
     markup = <<-END
 One line
 
-* Nested 
-*# bullets 
-*# go 
-*# here 
-*## dfsdf 
-*## dsfs  
-* Final bullet 
+* Nested
+*# bullets
+*# go
+*# here
+*## dfsdf
+*## dsfs
+* Final bullet
 
 More stuff too
 
-* In 
-** and 
-* out 
-*# with numbers 
-*#* and sub-bullets  
-* and back out 
+* In
+** and
+* out
+*# with numbers
+*#* and sub-bullets
+* and back out
 
 h1. With +nice+ formatting.
     END
@@ -99,7 +99,7 @@ h1. With +nice+ formatting.
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to include(markup.strip)
   end
-  
+
   it "should match nested blockquotes" do
     html = <<-END
 <blockquote><blockquote>content here</blockquote></blockquote>
@@ -113,7 +113,7 @@ h1. With +nice+ formatting.
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to include(markup.strip)
   end
-  
+
   it "should handle empty paragraphs" do
     html = <<-END
     <p>Previous</p><p><br></p><p><b>Scenario 4a: Existing deletes their ID</b><br>
@@ -126,7 +126,7 @@ h1. With +nice+ formatting.
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to eq(markup)
   end
-  
+
   it "should handle empty bold sections" do
     html = <<-END
     <p>Previous line</p>
@@ -140,7 +140,7 @@ h1. With +nice+ formatting.
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to eq(markup)
   end
-  
+
   it "doesn't remove extra newlines" do
     html = "<p><b>And</b> first line</p>\n\n<p><b><br></b></p><p><b>second line</b></p>\n\n"
 
@@ -150,7 +150,7 @@ h1. With +nice+ formatting.
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to eq(markup)
   end
-  
+
   it "handles unclosed img tags" do
     html = "<div><img src='a source'></div>\n\n"
 
@@ -160,7 +160,7 @@ h1. With +nice+ formatting.
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to eq(markup)
   end
-  
+
   it "handles wbr tags" do
     html = "<div>familiar with the XML<wbr>Http<wbr>Request Object</div>\n\n"
 
@@ -168,9 +168,9 @@ h1. With +nice+ formatting.
     parser = HTMLToConfluenceParser.new
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to eq(markup)
-    
+
   end
-  
+
   it "should handle unclosed tags" do
     html = <<-END
     <p>Previous line</p>
@@ -183,7 +183,7 @@ h1. With +nice+ formatting.
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to eq(markup)
   end
-  
+
   it "should handle HTML comments" do
     html = <<-END
     <p><!--?rh-implicit_p?--><span style=\"font-style: italic;\">A</span></p>
@@ -195,8 +195,5 @@ h1. With +nice+ formatting.
     parser.feed(html)
     expect(parser.to_wiki_markup.strip).to eq(markup)
   end
-  
+
 end
-
-
-
