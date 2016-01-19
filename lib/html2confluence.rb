@@ -19,13 +19,8 @@ require 'nokogiri' # For validating html from our editor
 #   parser.feed(input_html)
 #   puts parser.to_textile
 class HTMLToConfluenceParser
-  
-  attr_accessor :result
-  attr_accessor :data_stack
-  attr_accessor :a_href
-  attr_accessor :a_title
-  attr_accessor :list_stack
-  
+  attr_accessor :result, :data_stack, :a_href, :a_title, :list_stack
+
   def initialize(verbose=nil)
     @output = String.new
     @stack = []
