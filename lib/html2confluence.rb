@@ -24,9 +24,9 @@ class HTMLToConfluenceParser
   def initialize
     @output = String.new
     @stack = []
-    @preserveWhitespace = false
+    @preserve_whitespace = false
     @last_write = ""
-    @tableHeaderRow = false
+    @table_header_row = false
     self.result = []
     self.data_stack = []
     self.list_stack = []
@@ -35,7 +35,7 @@ class HTMLToConfluenceParser
   # Normalise space in the same manner as HTML. Any substring of multiple
   # whitespace characters will be replaced with a single space char.
   def normalise_space(s)
-    return s if @preserveWhitespace
+    return s if @preserve_whitespace
     s.to_s.gsub(/\s+/x, ' ')
   end
 
@@ -118,7 +118,7 @@ class HTMLToConfluenceParser
   end
 
   def handle_data(data)
-    if @preserveWhitespace
+    if @preserve_whitespace
       write(data)
     else
       data ||= ""
@@ -297,7 +297,7 @@ class HTMLToConfluenceParser
   end
 
   def end_tr
-    if @tableHeaderRow
+    if @table_header_row
       write("||")
     else
       write("|")
@@ -307,7 +307,7 @@ class HTMLToConfluenceParser
   def start_th(attrs)
     write("||")
     start_capture("th")
-    @tableHeaderRow = true
+    @table_header_row = true
   end
 
   def end_th
@@ -318,7 +318,7 @@ class HTMLToConfluenceParser
   def start_td(attrs)
     write("|")
     start_capture("td")
-    @tableHeaderRow = false
+    @table_header_row = false
   end
 
   def end_td
@@ -362,14 +362,14 @@ class HTMLToConfluenceParser
   end
 
   def start_pre(attrs)
-    @preserveWhitespace = true
+    @preserve_whitespace = true
     write("{noformat}\n")
   end
 
   def end_pre
     stop_capture_and_write
     write("\n{noformat}")
-    @preserveWhitespace = false
+    @preserve_whitespace = false
   end
 
   def preprocess(data)
