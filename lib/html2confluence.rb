@@ -345,7 +345,7 @@ class HTMLToConfluenceParser
   end
 
   def start_hr(attrs)
-    write("---")
+    write("----")
   end
 
   def start_blockquote(attrs)
