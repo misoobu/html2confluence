@@ -480,6 +480,8 @@ class HTMLToConfluenceParser
     @stack.push(name)
     if self.respond_to?("start_#{name}")
       self.send("start_#{name}", attributes)
+    else
+      p "ignore tag_start:#{name}"
     end
   end
 
@@ -487,6 +489,8 @@ class HTMLToConfluenceParser
     #puts "<p>End #{name}</p>"
     if self.respond_to?("end_#{name}")
       self.send("end_#{name}")
+    else
+      p "ignore tag_end:#{name}"
     end
     @stack.pop
   end
