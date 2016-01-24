@@ -149,9 +149,9 @@ class HTMLToConfluenceParser
   end
 
   PAIRS = { 'bq' => 'bq', 'p' => 'p' }
-  QUICKTAGS = { 'b' => '*', 'strong' => '*', 'del' => '-',
-    'i' => '_', 'ins' => '+', 'u' => '+', 'em' => '_', 'cite' => '??',
-    'sup' => '^', 'sub' => '~', 'code' => '@', 'span' => '%'}
+  QUICKTAGS = { 'b' => '{*}', 'strong' => '{*}', 'del' => '{-}',
+    'i' => '{_}', 'ins' => '{+}', 'u' => '{+}', 'em' => '{_}', 'cite' => '??',
+    'sup' => '{^}', 'sub' => '{~}', 'code' => '@', 'span' => '%'}
 
   PAIRS.each do |key, value|
     define_method "start_#{key}" do |attributes|
