@@ -133,11 +133,18 @@ class HTMLToConfluenceParser
 
   %w[1 2 3 4 5 6].each do |num|
     define_method "start_h#{num}" do |attributes|
-      make_block_start_pair("h#{num}", attributes)
+      make_block_start_pair("h#{shift_h_num(num)}", attributes)
     end
 
     define_method "end_h#{num}" do
       make_block_end_pair
+    end
+  end
+
+  # for hiki content
+  def shift_h_num(num)
+    (num.to_i - 1).tap do |shift_num|
+      raise "shift_num error: #{shift_num}" if shift_num < 1
     end
   end
 
