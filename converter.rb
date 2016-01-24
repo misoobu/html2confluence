@@ -17,6 +17,7 @@ end
 parser = HTMLToConfluenceParser.new
 parser.feed(html)
 wiki_markup = parser.to_wiki_markup
+p wiki_markup
 
 # post for test
 RubyPython.start
@@ -27,7 +28,7 @@ python_api = PythonConfluenceAPI.ConfluenceAPI.new(USERNAME, PASSWORD, WIKI_SITE
 
 python_result = python_api.create_new_content({
   "type":  "page",
-  "title": "テスト投稿 (#{Time.now})",
+  "title": "TEST (#{Time.now})",
   "space": { "key": "LOL" },
   "body":  {
     "storage": {
@@ -41,5 +42,5 @@ json = python_json.dumps(python_result).rubify
 
 RubyPython.stop
 
-hash = JSON.parse(json)
-p hash
+# hash = JSON.parse(json)
+# p hash
